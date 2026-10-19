@@ -1,52 +1,62 @@
 const CONFIG = {
-  // Nama panggilan gebetan / pacar
-  herName: "Cantik", 
+  // Names
+  herName: "Audy", 
+  yourName: "Gege",
 
-  // Nama panggilan kamu
-  yourName: "Aku",
+  // Screen 1: Envelope Intro
+  envelopeTitle: "A Little Note For You ✨",
+  envelopeSubtitle: "There is something I have wanted to tell you... Click to open 💌",
 
-  // Pesan di amplop awal
-  envelopeTitle: "Hai Spesial Buat Kamu ✨",
-  envelopeSubtitle: "Ada sepucuk surat rahasia... Klik amplop untuk membuka 💌",
+  // Screen 2: The Confession (Rekindling love / second chance)
+  confessionHeading: "Would you be my girlfriend again? 🥺👉👈",
+  confessionMessage: "They say life has a quiet way of bringing certain people back together. We’ve had our past chapters, but getting close to you again reminded me why you’ve always held a special place in my heart. I don't want to dwell on yesterday—I want to build something completely new, honest, and beautiful with you. Will you give us another chance and walk this path together with me?",
 
-  // Pesan ungkapan perasaan
-  confessionHeading: "Mau gak kamu jadi pacar aku? 🥺👉👈",
-  confessionMessage: "Dari sekian banyak waktu yang kita lewati bareng, aku sadar kalau ada kamu bikin hari-hari aku jauh lebih berwarna, hangat, dan bahagia. Hari ini, dengan segala ketulusan dan keberanian hati...",
-
-  // Teks tombol
-  yesButtonText: "Mau Banget! 🥰💖",
+  // Interactive Buttons
+  yesButtonText: "Yes, let's do this 💖",
   
-  // Variasi teks tombol 'No' saat mencoba diklik atau didekati kursor
+  // Playful evasion texts when she tries to click 'No'
   noButtonTexts: [
-    "Nggak dulu 😝",
-    "Eits gak kena! 😜",
-    "Yakin nih mau nolak? 🥺",
-    "Tombolnya licin wkwk",
-    "Coba lagi kalau bisa 😝",
-    "Pikir-pikir lagi yuk~ 🍦",
-    "Masa tega sih? 💔",
-    "Hati-hati jarinya kram 😆",
-    "Pencet yang pink aja deh! 👉",
-    "Tombol ini rusak kayaknya 🤪",
-    "Harus mau pokoknya! 😋"
+    "Not sure yet 😝",
+    "Are you really sure? 🥺",
+    "Give this chapter a chance ✨",
+    "Too fast! Try again 😜",
+    "Think about the good times ahead ☕",
+    "Can't let you click this one 😉",
+    "The green button looks way better 👉",
+    "Third time's the charm? 💫",
+    "Come on, you know you want to 🤍"
   ],
 
-  // Konten setelah dia klik YES!
-  celebrateTitle: "YAAAY! We're Official Now! 🎉💖",
-  celebrateSubtitle: "Makasih udah mau jadi pacar aku! 🥰",
-  celebrateMessage: "Janji bakal selalu berusaha bikin kamu tersenyum, nemenin hari-hari kamu, dan sayang sama kamu setiap hari!",
+  // Screen 3: The Celebration (New Beginnings)
+  celebrateTitle: "To New Beginnings, Together ✨",
+  celebrateSubtitle: "Thank you for choosing us again. 🥰",
+  celebrateMessage: "I promise to listen more, cherish you deeper, and make sure you feel valued every single day. Here’s to writing our best story yet.",
 
-  // Nomor WhatsApp kamu (Gunakan kode negara, contoh 6281234567890 tanpa tanda + atau spasi)
-  waNumber: "6281234567890",
+  // WhatsApp Configuration
+  waNumber: "6282123934303",
+  waMessage: "Hey Gege, I just opened your letter... and yes, let's write our new chapter together. ❤️",
 
-  // Pesan otomatis yang akan dia kirim ke WhatsApp kamu setelah klik Yes
-  waMessage: "Hai! Aku barusan buka web buatan kamu dan... I said YES! 🥰💖 Resmi pacaran nih sekarang yaaa! ✨",
-
-  // Kupon cinta interaktif yang bisa dia 'klaim'
+  // Meaningful & romantic relationship coupons
   coupons: [
-    { icon: "🍦", title: "Kupon Eskrim / Boba", desc: "Bebas klaim kapanpun kamu mau jajan manis!" },
-    { icon: "🎬", title: "Kupon Movie Date", desc: "Nonton film pilihan kamu + popcorn bebas pilih rasa." },
-    { icon: "🛵", title: "Kupon Night Ride", desc: "Keliling santai cari angin malam sambil jajan." },
-    { icon: "🫂", title: "Kupon Curhat 24/7", desc: "Selalu siap mendengarkan dan nemenin kamu kapan aja." }
+    { 
+      icon: "☕", 
+      title: "Coffee & Heart-to-Heart", 
+      desc: "A quiet cafe date to talk about anything and everything." 
+    },
+    { 
+      icon: "🎬", 
+      title: "Dinner & Movie Night", 
+      desc: "A proper date night—your favorite food, my treat." 
+    },
+    { 
+      icon: "🌙", 
+      title: "Late Night Drive", 
+      desc: "Gentle breeze, your favorite songs, and nowhere to rush." 
+    },
+    { 
+      icon: "🤍", 
+      title: "A Clean Slate", 
+      desc: "A genuine promise to leave the past behind and walk forward hand in hand." 
+    }
   ]
 };

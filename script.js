@@ -1,5 +1,5 @@
 /* ======================================================
-   INTERACTIVE SCRIPT - CONFESSION & CELEBRATION
+   INTERACTIVE SCRIPT - CONFESSION & CELEBRATION (ENGLISH)
    ====================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -48,36 +48,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 3. Populate Config
   if (typeof CONFIG !== "undefined") {
-    if (herNameDisplay) herNameDisplay.textContent = CONFIG.herName || "Kamu";
-    if (yourNameDisplay) yourNameDisplay.textContent = CONFIG.yourName || "Aku";
-    if (envelopeTitleText) envelopeTitleText.textContent = CONFIG.envelopeTitle || "Hai Spesial Buat Kamu ✨";
-    if (envelopeSubtitleText) envelopeSubtitleText.textContent = CONFIG.envelopeSubtitle || "Klik amplop untuk membuka 💌";
-    if (confessionHeadingText) confessionHeadingText.textContent = CONFIG.confessionHeading || "Mau gak kamu jadi pacar aku? 🥺👉👈";
+    if (herNameDisplay) herNameDisplay.textContent = CONFIG.herName || "Audy";
+    if (yourNameDisplay) yourNameDisplay.textContent = CONFIG.yourName || "Gege";
+    if (envelopeTitleText) envelopeTitleText.textContent = CONFIG.envelopeTitle || "A Little Note For You ✨";
+    if (envelopeSubtitleText) envelopeSubtitleText.textContent = CONFIG.envelopeSubtitle || "There is something I have wanted to tell you... Click to open 💌";
+    if (confessionHeadingText) confessionHeadingText.textContent = CONFIG.confessionHeading || "Would you be my girlfriend again? 🥺👉👈";
     if (confessionMessageText) confessionMessageText.textContent = CONFIG.confessionMessage || "";
-    if (yesBtnText) yesBtnText.textContent = CONFIG.yesButtonText || "Mau Banget! 🥰💖";
-    if (noBtnText) noBtnText.textContent = (CONFIG.noButtonTexts && CONFIG.noButtonTexts[0]) || "Nggak dulu 😝";
-    if (celebrateTitleText) celebrateTitleText.textContent = CONFIG.celebrateTitle || "YAAAY! We're Official Now! 🎉💖";
-    if (celebrateSubtitleText) celebrateSubtitleText.textContent = CONFIG.celebrateSubtitle || "Makasih udah mau jadi pacar aku! 🥰";
+    if (yesBtnText) yesBtnText.textContent = CONFIG.yesButtonText || "Yes, let's do this 💖";
+    if (noBtnText) noBtnText.textContent = (CONFIG.noButtonTexts && CONFIG.noButtonTexts[0]) || "Not sure yet 😝";
+    if (celebrateTitleText) celebrateTitleText.textContent = CONFIG.celebrateTitle || "To New Beginnings, Together ✨";
+    if (celebrateSubtitleText) celebrateSubtitleText.textContent = CONFIG.celebrateSubtitle || "Thank you for choosing us again. 🥰";
     if (celebrateMessageText) celebrateMessageText.textContent = CONFIG.celebrateMessage || "";
 
     // Set WhatsApp link
     if (waSendBtn && CONFIG.waNumber) {
       const cleanNumber = CONFIG.waNumber.replace(/[^0-9]/g, "");
-      const encodedMsg = encodeURIComponent(CONFIG.waMessage || "I said YES! 🥰💖");
+      const encodedMsg = encodeURIComponent(CONFIG.waMessage || "Hey Gege, I said yes! ❤️");
       waSendBtn.href = `https://wa.me/${cleanNumber}?text=${encodedMsg}`;
     }
 
     // Render coupons
     if (couponsGrid && Array.isArray(CONFIG.coupons)) {
       couponsGrid.innerHTML = "";
-      CONFIG.coupons.forEach((coupon, idx) => {
+      CONFIG.coupons.forEach((coupon) => {
         const item = document.createElement("div");
         item.className = "coupon-item";
         item.innerHTML = `
           <div class="coupon-icon">${coupon.icon || "🎁"}</div>
           <div class="coupon-title">${coupon.title}</div>
           <div class="coupon-desc">${coupon.desc}</div>
-          <div class="coupon-stamp">TERKLAIM ✨</div>
+          <div class="coupon-stamp">CLAIMED ✨</div>
         `;
         item.addEventListener("click", () => {
           item.classList.toggle("claimed");
@@ -88,16 +88,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 4. Format Today's Date in Indonesian
+  // 4. Format Today's Date in English
   if (officialDateText) {
     const today = new Date();
     const options = { year: "numeric", month: "long", day: "numeric" };
-    officialDateText.textContent = today.toLocaleDateString("id-ID", options);
+    officialDateText.textContent = today.toLocaleDateString("en-US", options);
   }
 
   // 5. Generate Ambient Floating Hearts & Stars
   function createAmbientParticles() {
-    const symbols = ["💖", "💕", "✨", "🌸", "🧸", "🌷", "⭐"];
+    const symbols = ["💖", "💕", "✨", "🌸", "🤍", "🌷", "⭐"];
     const count = window.innerWidth < 600 ? 14 : 22;
 
     for (let i = 0; i < count; i++) {
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   createAmbientParticles();
 
-  // 6. Web Audio Synthesizer (Zero-asset romantic background chords & SFX)
+  // 6. Web Audio Synthesizer (Zero-asset romantic ambient melody & SFX)
   function initAudio() {
     if (!audioCtx) {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function playTone(freq, type = "sine", duration = 0.4, gainLevel = 0.1) {
+  function playTone(freq, type = "sine", duration = 0.4, gainLevel = 0.08) {
     if (!audioCtx) return;
     try {
       const osc = audioCtx.createOscillator();
@@ -149,15 +149,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function playChime(freq = 523.25, type = "triangle", duration = 0.3) {
     initAudio();
-    playTone(freq, type, duration, 0.15);
+    playTone(freq, type, duration, 0.12);
   }
 
-  // Sweet background arpeggio progression (Cmaj7 -> Am7 -> Dm7 -> G7)
+  // Romantic arpeggio progression (Cmaj7 -> Am7 -> Dm7 -> G7)
   const melodyNotes = [
-    523.25, 659.25, 783.99, 987.77, // Cmaj7 (C5, E5, G5, B5)
-    440.00, 523.25, 659.25, 880.00, // Am7 (A4, C5, E5, A5)
-    587.33, 698.46, 880.00, 1046.50,// Dm7 (D5, F5, A5, C6)
-    392.00, 493.88, 587.33, 783.99  // G7 (G4, B4, D5, G5)
+    523.25, 659.25, 783.99, 987.77, // Cmaj7
+    440.00, 523.25, 659.25, 880.00, // Am7
+    587.33, 698.46, 880.00, 1046.50,// Dm7
+    392.00, 493.88, 587.33, 783.99  // G7
   ];
   let noteIndex = 0;
 
@@ -166,12 +166,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isMusicPlaying) return;
     isMusicPlaying = true;
     musicToggleBtn.classList.add("playing");
-    musicText.textContent = "Musik Aktif";
+    musicText.textContent = "Music On";
     musicIcon.textContent = "💖";
 
     musicInterval = setInterval(() => {
       const note = melodyNotes[noteIndex % melodyNotes.length];
-      playTone(note, "sine", 0.6, 0.05);
+      playTone(note, "sine", 0.6, 0.045);
       noteIndex++;
     }, 450);
   }
@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function stopBgm() {
     isMusicPlaying = false;
     musicToggleBtn.classList.remove("playing");
-    musicText.textContent = "Putar Musik";
+    musicText.textContent = "Play Music";
     musicIcon.textContent = "🎵";
     if (musicInterval) {
       clearInterval(musicInterval);
@@ -195,13 +195,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 7. Envelope Open Transition
+  // 7. Autoplay Hook (Attempt immediate start + fallback on first user gesture)
+  function attemptAutoplay() {
+    try {
+      startBgm();
+    } catch (e) {
+      // Browser blocked autoplay before gesture
+    }
+  }
+
+  // Try right away
+  attemptAutoplay();
+
+  // Also hook into the very first click / tap anywhere on page to trigger autoplay seamlessly
+  function onFirstUserGesture() {
+    if (!isMusicPlaying) {
+      startBgm();
+    }
+    // Remove listeners once activated
+    ["click", "touchstart", "pointerdown", "keydown"].forEach((evt) => {
+      window.removeEventListener(evt, onFirstUserGesture);
+    });
+  }
+
+  ["click", "touchstart", "pointerdown", "keydown"].forEach((evt) => {
+    window.addEventListener(evt, onFirstUserGesture, { once: true, passive: true });
+  });
+
+  // 8. Envelope Open Transition
   function openEnvelope() {
     initAudio();
     startBgm();
     envelopeWrapper.classList.add("open");
 
-    // Play sparkling sound
+    // Play sparkling chime sound
     playChime(523.25, "triangle", 0.2);
     setTimeout(() => playChime(659.25, "triangle", 0.2), 120);
     setTimeout(() => playChime(783.99, "triangle", 0.25), 240);
@@ -217,59 +244,58 @@ document.addEventListener("DOMContentLoaded", () => {
   envelopeWrapper.addEventListener("click", openEnvelope);
   openEnvelopeBtn.addEventListener("click", openEnvelope);
 
-  // 8. Evasive "No" Button Logic (The playful dodge!)
-  const dodgeMessages = [
-    "Eits gak kena! 😜",
-    "Yakin nih mau nolak? 🥺",
-    "Tombolnya licin banget! 🧼",
-    "Coba lagi kalau bisa 😝",
-    "Pikir-pikir lagi yuk~ 🍦",
-    "Masa tega sih? 💔",
-    "Hati-hati jarinya kram 😆",
-    "Pencet tombol pink aja deh! 👉",
-    "Gak semudah itu ferguso 🤪",
-    "Pokoknya harus mau! 😋"
+  // 9. Evasive "No" Button Logic (The playful dodge)
+  const defaultDodgeTexts = [
+    "Not sure yet 😝",
+    "Are you really sure? 🥺",
+    "Give this chapter a chance ✨",
+    "Too fast! Try again 😜",
+    "Think about the good times ahead ☕",
+    "Can't let you click this one 😉",
+    "The green button looks way better 👉",
+    "Third time's the charm? 💫",
+    "Come on, you know you want to 🤍"
   ];
 
   function dodgeNoButton(e) {
     if (e) e.preventDefault();
     initAudio();
 
-    // Funny 'boing' sound
-    playTone(320 + Math.random() * 150, "sine", 0.15, 0.12);
+    // Playful boing sound
+    playTone(320 + Math.random() * 150, "sine", 0.15, 0.1);
 
     dodgeCount++;
 
     // Random new text
-    const texts = (CONFIG && CONFIG.noButtonTexts) || dodgeMessages;
+    const texts = (CONFIG && CONFIG.noButtonTexts) || defaultDodgeTexts;
     noBtnText.textContent = texts[dodgeCount % texts.length];
 
-    // Playful mascot comments
+    // Playful mascot remarks
     if (mascotBubble) {
       const bubbleRemarks = [
-        "Ayo dong diterima~ 🥺",
-        "Kok nolak terus sih? 😭",
-        "Tombol Yes-nya lambaikan tangan tuh! 👋",
-        "Jangan malu-malu gitu deh! 🥰",
-        "Janji gak bakal nyesel! ✨"
+        "Hear me out, please~ 🥺",
+        "Give it another thought! ✨",
+        "Look at that lovely green button! 👉",
+        "We'd make a great team again! 🤍",
+        "No regrets this time, promise! 🌟"
       ];
       mascotBubble.textContent = bubbleRemarks[dodgeCount % bubbleRemarks.length];
     }
 
-    // Make YES button grow bigger each time!
+    // Make YES button grow bigger each time
     yesScale += 0.12;
     if (yesScale > 1.8) yesScale = 1.8;
     yesBtn.style.transform = `scale(${yesScale})`;
 
-    // Get boundaries of card/playground
+    // Get boundaries of card
     const container = confessionScreen.querySelector(".confession-card") || document.body;
     const rect = container.getBoundingClientRect();
     const btnRect = noBtn.getBoundingClientRect();
 
-    // Calculate maximum available safe range inside card
+    // Safe bounds
     const padding = 20;
     const maxX = rect.width - btnRect.width - padding * 2;
-    const maxY = 220; // safe vertical roaming distance
+    const maxY = 200;
 
     const randomX = (Math.random() - 0.5) * maxX;
     const randomY = (Math.random() - 0.5) * maxY;
@@ -279,7 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
     noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
 
     if (dodgeHint) {
-      dodgeHint.textContent = `Wkwk meleset ${dodgeCount}x! Tombol 'Mau'-nya makin gede tuh 😉`;
+      dodgeHint.textContent = `Dodged ${dodgeCount}x! The 'Yes' button is calling you 😉`;
     }
   }
 
@@ -292,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dodgeNoButton(e);
   });
 
-  // 9. Confetti Helpers
+  // 10. Confetti Helpers
   function confettiMiniBurst() {
     if (typeof confetti === "function") {
       confetti({
@@ -362,7 +388,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 250);
   }
 
-  // 10. Yes Button Click (Success Screen)
+  // 11. Yes Button Click (Success Screen)
   yesBtn.addEventListener("click", () => {
     initAudio();
     startBgm();
