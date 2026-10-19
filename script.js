@@ -29,16 +29,45 @@ document.addEventListener("DOMContentLoaded", () => {
   const waSendBtn = document.getElementById("waSendBtn");
   const replayConfettiBtn = document.getElementById("replayConfettiBtn");
 
+  const customWishInput = document.getElementById("customWishInput");
+  const lockWishBtn = document.getElementById("lockWishBtn");
+  const customWishStatus = document.getElementById("customWishStatus");
+
   const musicToggleBtn = document.getElementById("musicToggleBtn");
   const musicText = document.getElementById("musicText");
   const musicIcon = document.getElementById("musicIcon");
   const ambientBg = document.getElementById("ambientBg");
+  const bgAudio = document.getElementById("bgAudio");
 
   let dodgeCount = 0;
   let yesScale = 1.0;
   let isMusicPlaying = false;
   let audioCtx = null;
   let musicInterval = null;
+  let currentCustomWish = "";
+  let useAudioElement = false;
+
+  const audioSrc = (typeof CONFIG !== "undefined" && CONFIG.musicUrl) ? CONFIG.musicUrl : "assets/music.mp3";
+  if (bgAudio) {
+    bgAudio.src = audioSrc;
+    bgAudio.volume = 0.6;
+    bgAudio.addEventListener("canplaythrough", () => {
+      useAudioElement = true;
+    });
+    bgAudio.addEventListener("error", () => {
+      useAudioElement = false;
+    });
+  }
+
+  function updateWhatsAppLink() {
+    if (!waSendBtn || typeof CONFIG === "undefined" || !CONFIG.waNumber) return;
+    const cleanNumber = CONFIG.waNumber.replace(/[^0-9]/g, "");
+    let fullMsg = CONFIG.waMessage || "Hey Gege, I said yes! ❤️";
+    if (currentCustomWish.trim()) {
+      fullMsg += `\n\n✨ PS: My special wish coupon: "${currentCustomWish.trim()}" 💌`;
+    }
+    waSendBtn.href = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(fullMsg)}`;
+  }
 
   if (typeof CONFIG !== "undefined") {
     if (herNameDisplay) herNameDisplay.textContent = CONFIG.herName || "Audy";
@@ -53,11 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (celebrateSubtitleText) celebrateSubtitleText.textContent = CONFIG.celebrateSubtitle || "Thank you for choosing us again. 🥰";
     if (celebrateMessageText) celebrateMessageText.textContent = CONFIG.celebrateMessage || "";
 
-    if (waSendBtn && CONFIG.waNumber) {
-      const cleanNumber = CONFIG.waNumber.replace(/[^0-9]/g, "");
-      const encodedMsg = encodeURIComponent(CONFIG.waMessage || "Hey Gege, I said yes! ❤️");
-      waSendBtn.href = `https://wa.me/${cleanNumber}?text=${encodedMsg}`;
-    }
+    updateWhatsAppLink();
 
     if (couponsGrid && Array.isArray(CONFIG.coupons)) {
       couponsGrid.innerHTML = "";
@@ -77,6 +102,36 @@ document.addEventListener("DOMContentLoaded", () => {
         couponsGrid.appendChild(item);
       });
     }
+  }
+
+  if (customWishInput) {
+    customWishInput.addEventListener("input", () => {
+      currentCustomWish = customWishInput.value;
+      updateWhatsAppLink();
+    });
+  }
+
+  if (lockWishBtn && customWishInput) {
+    lockWishBtn.addEventListener("click", () => {
+      const wish = customWishInput.value.trim();
+      if (!wish) {
+        if (customWishStatus) {
+          customWishStatus.textContent = "Please write a wish first! ✨";
+          customWishStatus.style.color = "#e11d48";
+        }
+        return;
+      }
+      currentCustomWish = wish;
+      updateWhatsAppLink();
+      playChime(880, "triangle", 0.25);
+      lockWishBtn.classList.add("locked");
+      lockWishBtn.innerHTML = "<span>Wish Saved! ✨</span>";
+      if (customWishStatus) {
+        customWishStatus.textContent = "Wish locked! It will be sent via WhatsApp 🥰";
+        customWishStatus.style.color = "#059669";
+      }
+      confettiMiniBurst();
+    });
   }
 
   if (officialDateText) {
@@ -148,14 +203,9 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
   let noteIndex = 0;
 
-  function startBgm() {
+  function startSynth() {
     initAudio();
-    if (isMusicPlaying) return;
-    isMusicPlaying = true;
-    musicToggleBtn.classList.add("playing");
-    musicText.textContent = "Music On";
-    musicIcon.textContent = "💖";
-
+    if (musicInterval) return;
     musicInterval = setInterval(() => {
       const note = melodyNotes[noteIndex % melodyNotes.length];
       playTone(note, "sine", 0.6, 0.045);
@@ -163,11 +213,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 450);
   }
 
+  function startBgm() {
+    if (isMusicPlaying) return;
+    isMusicPlaying = true;
+    musicToggleBtn.classList.add("playing");
+    musicText.textContent = "Music On";
+    musicIcon.textContent = "💖";
+
+    if (bgAudio && (CONFIG.musicUrl || useAudioElement)) {
+      bgAudio.play().catch(() => {
+        startSynth();
+      });
+    } else {
+      startSynth();
+    }
+  }
+
   function stopBgm() {
     isMusicPlaying = false;
     musicToggleBtn.classList.remove("playing");
     musicText.textContent = "Play Music";
     musicIcon.textContent = "🎵";
+    if (bgAudio) {
+      bgAudio.pause();
+    }
     if (musicInterval) {
       clearInterval(musicInterval);
       musicInterval = null;

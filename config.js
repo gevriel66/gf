@@ -1,6 +1,7 @@
 const CONFIG = {
   herName: "Audy",
   yourName: "Gege",
+  musicUrl: "",
 
   envelopeTitle: "A Little Note For You ✨",
   envelopeSubtitle: "There is something I have wanted to tell you... Click to open 💌",

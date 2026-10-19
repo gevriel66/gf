@@ -21,6 +21,8 @@
 
   <div class="ambient-background" id="ambientBg"></div>
 
+  <audio id="bgAudio" loop preload="auto"></audio>
+
   <button class="music-toggle-btn" id="musicToggleBtn" aria-label="Toggle Music">
     <span class="music-icon" id="musicIcon">🎵</span>
     <span class="music-text" id="musicText">Play Music</span>
@@ -115,6 +117,23 @@
           <h3 class="coupons-header">🎁 Special Promises & Coupons:</h3>
           <p class="coupons-sub">(Tap any coupon to claim it!)</p>
           <div class="coupons-grid" id="couponsGrid"></div>
+
+          <div class="custom-coupon-box">
+            <div class="custom-coupon-header">
+              <span class="custom-coupon-icon">✨</span>
+              <div class="custom-coupon-meta">
+                <h4 class="custom-coupon-title">Make A Wish (Wildcard Coupon)</h4>
+                <p class="custom-coupon-sub">One wish of yours, on me. What would you like us to do?</p>
+              </div>
+            </div>
+            <div class="custom-coupon-input-group">
+              <input type="text" id="customWishInput" class="custom-wish-input" placeholder="e.g. Surprise weekend trip, ice cream date..." maxlength="100">
+              <button id="lockWishBtn" class="btn btn-lock-wish" type="button">
+                <span>Lock Wish 💌</span>
+              </button>
+            </div>
+            <p class="custom-wish-status" id="customWishStatus"></p>
+          </div>
         </div>
 
         <div class="action-box">
