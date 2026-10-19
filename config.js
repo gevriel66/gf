@@ -1,15 +1,15 @@
 const CONFIG = {
-  herName: "Audy", 
+  herName: "Audy",
   yourName: "Gege",
 
   envelopeTitle: "A Little Note For You ✨",
   envelopeSubtitle: "There is something I have wanted to tell you... Click to open 💌",
 
   confessionHeading: "Would you be my girlfriend again? 🥺👉👈",
-  confessionMessage: "They say life has a quiet way of bringing certain people back together. We’ve had our past chapters, but getting close to you again reminded me why you’ve always held a special place in my heart. I don't want to dwell on yesterday—I want to build something completely new, honest, and beautiful with you. Will you give us another chance and walk this path together with me?",
+  confessionMessage: "They say life has a quiet way of bringing certain people back together. We’ve had our past chapters, but getting close to you again reminded me why you’ve always held a special place in my heart. I don't want to dwell on yesterday, I want to build something completely new, honest, and beautiful with you. Will you give us another chance and walk this path together with me?",
 
   yesButtonText: "Yes, let's do this 💖",
-  
+
   noButtonTexts: [
     "Not sure yet 😝",
     "Are you really sure? 🥺",
@@ -30,25 +30,25 @@ const CONFIG = {
   waMessage: "Hey Gege, I just opened your letter... and yes, let's write our new chapter together. ❤️",
 
   coupons: [
-    { 
-      icon: "☕", 
-      title: "Coffee & Heart-to-Heart", 
-      desc: "A quiet cafe date to talk about anything and everything." 
+    {
+      icon: "☕",
+      title: "Coffee & Heart-to-Heart",
+      desc: "A quiet cafe date to talk about anything and everything."
     },
-    { 
-      icon: "🎬", 
-      title: "Dinner & Movie Night", 
-      desc: "A proper date night—your favorite food, my treat." 
+    {
+      icon: "🎬",
+      title: "Dinner & Movie Night",
+      desc: "A proper date night, your favorite food, my treat."
     },
-    { 
-      icon: "🌙", 
-      title: "Late Night Drive", 
-      desc: "Gentle breeze, your favorite songs, and nowhere to rush." 
+    {
+      icon: "🌙",
+      title: "Late Night Drive",
+      desc: "Gentle breeze, your favorite songs, and nowhere to rush."
     },
-    { 
-      icon: "🤍", 
-      title: "A Clean Slate", 
-      desc: "A genuine promise to leave the past behind and walk forward hand in hand." 
+    {
+      icon: "🤍",
+      title: "A Clean Slate",
+      desc: "A genuine promise to leave the past behind and walk forward hand in hand."
     }
   ]
 };
