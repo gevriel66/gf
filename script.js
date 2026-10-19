@@ -43,20 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let yesScale = 1.0;
   let isMusicPlaying = false;
   let audioCtx = null;
-  let musicInterval = null;
   let currentCustomWish = "";
-  let useAudioElement = false;
 
-  const audioSrc = (typeof CONFIG !== "undefined" && CONFIG.musicUrl) ? CONFIG.musicUrl : "assets/music.mp3";
   if (bgAudio) {
-    bgAudio.src = audioSrc;
+    bgAudio.src = (typeof CONFIG !== "undefined" && CONFIG.musicUrl) ? CONFIG.musicUrl : "assets/music.mp3";
     bgAudio.volume = 0.6;
-    bgAudio.addEventListener("canplaythrough", () => {
-      useAudioElement = true;
-    });
-    bgAudio.addEventListener("error", () => {
-      useAudioElement = false;
-    });
+    bgAudio.loop = true;
   }
 
   function updateWhatsAppLink() {
@@ -195,86 +187,54 @@ document.addEventListener("DOMContentLoaded", () => {
     playTone(freq, type, duration, 0.12);
   }
 
-  const melodyNotes = [
-    523.25, 659.25, 783.99, 987.77,
-    440.00, 523.25, 659.25, 880.00,
-    587.33, 698.46, 880.00, 1046.50,
-    392.00, 493.88, 587.33, 783.99
-  ];
-  let noteIndex = 0;
-
-  function startSynth() {
-    initAudio();
-    if (musicInterval) return;
-    musicInterval = setInterval(() => {
-      const note = melodyNotes[noteIndex % melodyNotes.length];
-      playTone(note, "sine", 0.6, 0.045);
-      noteIndex++;
-    }, 450);
+  function playMusic() {
+    if (!bgAudio) return;
+    bgAudio.play().then(() => {
+      isMusicPlaying = true;
+      musicToggleBtn.classList.add("playing");
+      musicText.textContent = "Music On";
+      musicIcon.textContent = "💖";
+    }).catch(() => {
+      isMusicPlaying = false;
+      musicToggleBtn.classList.remove("playing");
+      musicText.textContent = "Play Music";
+      musicIcon.textContent = "🎵";
+    });
   }
 
-  function startBgm() {
-    if (isMusicPlaying) return;
-    isMusicPlaying = true;
-    musicToggleBtn.classList.add("playing");
-    musicText.textContent = "Music On";
-    musicIcon.textContent = "💖";
-
-    if (bgAudio && (CONFIG.musicUrl || useAudioElement)) {
-      bgAudio.play().catch(() => {
-        startSynth();
-      });
-    } else {
-      startSynth();
-    }
-  }
-
-  function stopBgm() {
+  function stopMusic() {
+    if (!bgAudio) return;
+    bgAudio.pause();
     isMusicPlaying = false;
     musicToggleBtn.classList.remove("playing");
     musicText.textContent = "Play Music";
     musicIcon.textContent = "🎵";
-    if (bgAudio) {
-      bgAudio.pause();
-    }
-    if (musicInterval) {
-      clearInterval(musicInterval);
-      musicInterval = null;
-    }
   }
 
-  musicToggleBtn.addEventListener("click", () => {
-    if (isMusicPlaying) {
-      stopBgm();
+  musicToggleBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (bgAudio && !bgAudio.paused) {
+      stopMusic();
     } else {
-      startBgm();
+      playMusic();
     }
   });
 
-  function attemptAutoplay() {
-    try {
-      startBgm();
-    } catch (e) {}
-  }
-
-  attemptAutoplay();
+  playMusic();
 
   function onFirstUserGesture() {
-    if (!isMusicPlaying) {
-      startBgm();
+    if (bgAudio && bgAudio.paused) {
+      playMusic();
     }
-    ["click", "touchstart", "pointerdown", "keydown"].forEach((evt) => {
-      window.removeEventListener(evt, onFirstUserGesture);
-    });
   }
 
   ["click", "touchstart", "pointerdown", "keydown"].forEach((evt) => {
-    window.addEventListener(evt, onFirstUserGesture, { once: true, passive: true });
+    document.addEventListener(evt, onFirstUserGesture, { once: true, passive: true });
   });
 
   function openEnvelope() {
     initAudio();
-    startBgm();
+    playMusic();
     envelopeWrapper.classList.add("open");
 
     playChime(523.25, "triangle", 0.2);
@@ -427,7 +387,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   yesBtn.addEventListener("click", () => {
     initAudio();
-    startBgm();
+    playMusic();
 
     playTone(523.25, "triangle", 0.3, 0.2);
     setTimeout(() => playTone(659.25, "triangle", 0.3, 0.2), 120);
