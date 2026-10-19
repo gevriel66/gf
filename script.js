@@ -1,9 +1,4 @@
-/* ======================================================
-   INTERACTIVE SCRIPT - CONFESSION & CELEBRATION (ENGLISH)
-   ====================================================== */
-
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Elements
   const envelopeScreen = document.getElementById("envelopeScreen");
   const confessionScreen = document.getElementById("confessionScreen");
   const celebrateScreen = document.getElementById("celebrateScreen");
@@ -39,14 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const musicIcon = document.getElementById("musicIcon");
   const ambientBg = document.getElementById("ambientBg");
 
-  // 2. State
   let dodgeCount = 0;
   let yesScale = 1.0;
   let isMusicPlaying = false;
   let audioCtx = null;
   let musicInterval = null;
 
-  // 3. Populate Config
   if (typeof CONFIG !== "undefined") {
     if (herNameDisplay) herNameDisplay.textContent = CONFIG.herName || "Audy";
     if (yourNameDisplay) yourNameDisplay.textContent = CONFIG.yourName || "Gege";
@@ -60,14 +53,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (celebrateSubtitleText) celebrateSubtitleText.textContent = CONFIG.celebrateSubtitle || "Thank you for choosing us again. 🥰";
     if (celebrateMessageText) celebrateMessageText.textContent = CONFIG.celebrateMessage || "";
 
-    // Set WhatsApp link
     if (waSendBtn && CONFIG.waNumber) {
       const cleanNumber = CONFIG.waNumber.replace(/[^0-9]/g, "");
       const encodedMsg = encodeURIComponent(CONFIG.waMessage || "Hey Gege, I said yes! ❤️");
       waSendBtn.href = `https://wa.me/${cleanNumber}?text=${encodedMsg}`;
     }
 
-    // Render coupons
     if (couponsGrid && Array.isArray(CONFIG.coupons)) {
       couponsGrid.innerHTML = "";
       CONFIG.coupons.forEach((coupon) => {
@@ -88,14 +79,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 4. Format Today's Date in English
   if (officialDateText) {
     const today = new Date();
     const options = { year: "numeric", month: "long", day: "numeric" };
     officialDateText.textContent = today.toLocaleDateString("en-US", options);
   }
 
-  // 5. Generate Ambient Floating Hearts & Stars
   function createAmbientParticles() {
     const symbols = ["💖", "💕", "✨", "🌸", "🤍", "🌷", "⭐"];
     const count = window.innerWidth < 600 ? 14 : 22;
@@ -113,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   createAmbientParticles();
 
-  // 6. Web Audio Synthesizer (Zero-asset romantic ambient melody & SFX)
   function initAudio() {
     if (!audioCtx) {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -152,12 +140,11 @@ document.addEventListener("DOMContentLoaded", () => {
     playTone(freq, type, duration, 0.12);
   }
 
-  // Romantic arpeggio progression (Cmaj7 -> Am7 -> Dm7 -> G7)
   const melodyNotes = [
-    523.25, 659.25, 783.99, 987.77, // Cmaj7
-    440.00, 523.25, 659.25, 880.00, // Am7
-    587.33, 698.46, 880.00, 1046.50,// Dm7
-    392.00, 493.88, 587.33, 783.99  // G7
+    523.25, 659.25, 783.99, 987.77,
+    440.00, 523.25, 659.25, 880.00,
+    587.33, 698.46, 880.00, 1046.50,
+    392.00, 493.88, 587.33, 783.99
   ];
   let noteIndex = 0;
 
@@ -195,24 +182,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 7. Autoplay Hook (Attempt immediate start + fallback on first user gesture)
   function attemptAutoplay() {
     try {
       startBgm();
-    } catch (e) {
-      // Browser blocked autoplay before gesture
-    }
+    } catch (e) {}
   }
 
-  // Try right away
   attemptAutoplay();
 
-  // Also hook into the very first click / tap anywhere on page to trigger autoplay seamlessly
   function onFirstUserGesture() {
     if (!isMusicPlaying) {
       startBgm();
     }
-    // Remove listeners once activated
     ["click", "touchstart", "pointerdown", "keydown"].forEach((evt) => {
       window.removeEventListener(evt, onFirstUserGesture);
     });
@@ -222,13 +203,11 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener(evt, onFirstUserGesture, { once: true, passive: true });
   });
 
-  // 8. Envelope Open Transition
   function openEnvelope() {
     initAudio();
     startBgm();
     envelopeWrapper.classList.add("open");
 
-    // Play sparkling chime sound
     playChime(523.25, "triangle", 0.2);
     setTimeout(() => playChime(659.25, "triangle", 0.2), 120);
     setTimeout(() => playChime(783.99, "triangle", 0.25), 240);
@@ -244,7 +223,6 @@ document.addEventListener("DOMContentLoaded", () => {
   envelopeWrapper.addEventListener("click", openEnvelope);
   openEnvelopeBtn.addEventListener("click", openEnvelope);
 
-  // 9. Evasive "No" Button Logic (The playful dodge)
   const defaultDodgeTexts = [
     "Not sure yet 😝",
     "Are you really sure? 🥺",
@@ -261,16 +239,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e) e.preventDefault();
     initAudio();
 
-    // Playful boing sound
     playTone(320 + Math.random() * 150, "sine", 0.15, 0.1);
-
     dodgeCount++;
 
-    // Random new text
     const texts = (CONFIG && CONFIG.noButtonTexts) || defaultDodgeTexts;
     noBtnText.textContent = texts[dodgeCount % texts.length];
 
-    // Playful mascot remarks
     if (mascotBubble) {
       const bubbleRemarks = [
         "Hear me out, please~ 🥺",
@@ -282,17 +256,14 @@ document.addEventListener("DOMContentLoaded", () => {
       mascotBubble.textContent = bubbleRemarks[dodgeCount % bubbleRemarks.length];
     }
 
-    // Make YES button grow bigger each time
     yesScale += 0.12;
     if (yesScale > 1.8) yesScale = 1.8;
     yesBtn.style.transform = `scale(${yesScale})`;
 
-    // Get boundaries of card
     const container = confessionScreen.querySelector(".confession-card") || document.body;
     const rect = container.getBoundingClientRect();
     const btnRect = noBtn.getBoundingClientRect();
 
-    // Safe bounds
     const padding = 20;
     const maxX = rect.width - btnRect.width - padding * 2;
     const maxY = 200;
@@ -309,7 +280,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Bind mouse and touch events
   noBtn.addEventListener("mouseenter", dodgeNoButton);
   noBtn.addEventListener("touchstart", (e) => {
     dodgeNoButton(e);
@@ -318,7 +288,6 @@ document.addEventListener("DOMContentLoaded", () => {
     dodgeNoButton(e);
   });
 
-  // 10. Confetti Helpers
   function confettiMiniBurst() {
     if (typeof confetti === "function") {
       confetti({
@@ -369,7 +338,6 @@ document.addEventListener("DOMContentLoaded", () => {
       startVelocity: 45
     });
 
-    // Ongoing heart cannon
     const end = Date.now() + 3.5 * 1000;
     const interval = setInterval(function() {
       if (Date.now() > end) {
@@ -388,28 +356,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 250);
   }
 
-  // 11. Yes Button Click (Success Screen)
   yesBtn.addEventListener("click", () => {
     initAudio();
     startBgm();
 
-    // Celebratory victory chords
     playTone(523.25, "triangle", 0.3, 0.2);
     setTimeout(() => playTone(659.25, "triangle", 0.3, 0.2), 120);
     setTimeout(() => playTone(783.99, "triangle", 0.35, 0.2), 240);
     setTimeout(() => playTone(1046.50, "triangle", 0.8, 0.25), 360);
 
-    // Switch screen
     confessionScreen.classList.remove("active");
     celebrateScreen.classList.add("active");
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 
-    // Launch confetti!
     launchGrandCelebrationConfetti();
   });
 
-  // Replay confetti button
   if (replayConfettiBtn) {
     replayConfettiBtn.addEventListener("click", () => {
       launchGrandCelebrationConfetti();
