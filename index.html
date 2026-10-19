@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Ada Surat Spesial Buat Kamu! 💌✨</title>
+  
+  <!-- OpenGraph Meta Tags for WhatsApp/Telegram preview -->
+  <meta property="og:title" content="Ada surat spesial buat kamu... 💌✨">
+  <meta property="og:description" content="Buka surat ini ya, ada pesan penting dari aku khusus untuk kamu! 🥰">
+  <meta property="og:image" content="assets/images/mascot.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Fredoka & Quicksand -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Floating Ambient Particles (Hearts & Stars) -->
+  <div class="ambient-background" id="ambientBg"></div>
+
+  <!-- Music Toggle Floating Pill -->
+  <button class="music-toggle-btn" id="musicToggleBtn" aria-label="Toggle Music">
+    <span class="music-icon" id="musicIcon">🎵</span>
+    <span class="music-text" id="musicText">Putar Musik</span>
+    <span class="sound-wave" id="soundWave">
+      <span></span><span></span><span></span>
+    </span>
+  </button>
+
+  <!-- Main Container -->
+  <main class="app-container">
+
+    <!-- ==============================================
+         SCREEN 1: THE ENVELOPE (Pesan Rahasia)
+         ============================================== -->
+    <section class="screen active" id="envelopeScreen">
+      <div class="envelope-card">
+        <div class="sparkle-badge">✨ Pesan Rahasia</div>
+        <h1 class="envelope-title" id="envelopeTitleText">Hai Spesial Buat Kamu ✨</h1>
+        <p class="envelope-subtitle" id="envelopeSubtitleText">Ada sepucuk surat rahasia... Klik amplop untuk membuka 💌</p>
+
+        <!-- Interactive Envelope -->
+        <div class="envelope-wrapper" id="envelopeWrapper" role="button" tabindex="0">
+          <div class="envelope-body">
+            <div class="envelope-flap" id="envelopeFlap"></div>
+            <div class="envelope-letter" id="envelopeLetter">
+              <span class="letter-heart">💌</span>
+              <p class="letter-peek">Untuk Kamu ❤️</p>
+            </div>
+            <div class="envelope-front">
+              <div class="wax-seal">
+                <span class="seal-heart">💖</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-pulse" id="openEnvelopeBtn">
+          <span>Buka Surat Sekarang 💌</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SCREEN 2: THE CONFESSION (Nembak)
+         ============================================== -->
+    <section class="screen" id="confessionScreen">
+      <div class="glass-card confession-card">
+        <!-- Floating sticker ribbon -->
+        <div class="tag-pill">Spesial Dari Hatiku 🌸</div>
+
+        <!-- Mascot Image -->
+        <div class="mascot-container">
+          <img src="assets/images/mascot.jpg" alt="Cute Mascot" class="mascot-img" id="mascotImg">
+          <div class="mascot-bubble" id="mascotBubble">Psst... dengar dulu ya! 🙈</div>
+        </div>
+
+        <!-- Greeting & Message -->
+        <h2 class="confession-title" id="confessionHeadingText">Mau gak kamu jadi pacar aku? 🥺👉👈</h2>
+        <div class="message-box">
+          <p class="greeting-tag">Hai <span id="herNameDisplay" class="highlight-name">Kamu</span> 💕,</p>
+          <p class="confession-message" id="confessionMessageText">
+            Dari sekian banyak waktu yang kita lewati bareng, aku sadar kalau ada kamu bikin hari-hari aku jauh lebih berwarna...
+          </p>
+        </div>
+
+        <!-- Interactive Buttons Playground -->
+        <div class="buttons-playground" id="buttonsPlayground">
+          <button class="btn btn-yes" id="yesBtn">
+            <span class="btn-icon">🥰</span>
+            <span class="btn-text" id="yesBtnText">Mau Banget! 💖</span>
+          </button>
+          
+          <button class="btn btn-no" id="noBtn">
+            <span class="btn-text" id="noBtnText">Nggak dulu 😝</span>
+          </button>
+        </div>
+
+        <p class="dodge-hint" id="dodgeHint">Pilih dari hati yang paling dalam ya~ 😉</p>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SCREEN 3: THE CELEBRATION (Official Jadian!)
+         ============================================== -->
+    <section class="screen" id="celebrateScreen">
+      <div class="glass-card celebrate-card">
+        <div class="celebrate-badge">🎉 OFFICIAL COUPLE! 💖</div>
+
+        <!-- Celebrate Mascot -->
+        <div class="celebrate-mascot-container">
+          <img src="assets/images/celebrate.jpg" alt="Celebrate Mascot" class="mascot-img celebrate-img">
+          <div class="celebrate-sparks">✨ 🎊 💖 🥳 ✨</div>
+        </div>
+
+        <h2 class="celebrate-title" id="celebrateTitleText">YAAAY! We're Official Now! 🎉💖</h2>
+        <p class="celebrate-sub" id="celebrateSubtitleText">Makasih udah mau jadi pacar aku! 🥰</p>
+
+        <!-- Official Relationship Date Badge -->
+        <div class="official-date-badge">
+          <span class="date-icon">🗓️</span>
+          <span>Resmi Jadian Sejak: <strong id="officialDateText">Hari Ini</strong></span>
+        </div>
+
+        <p class="celebrate-msg" id="celebrateMessageText">
+          Janji bakal selalu berusaha bikin kamu tersenyum, nemenin hari-hari kamu, dan sayang sama kamu setiap hari!
+        </p>
+
+        <!-- Love Coupons Section -->
+        <div class="coupons-section">
+          <h3 class="coupons-header">🎁 Kupon Kencan Spesial Buat Pacar Baru:</h3>
+          <p class="coupons-sub">(Klik kuponnya untuk mengklaim!)</p>
+          <div class="coupons-grid" id="couponsGrid">
+            <!-- Dynamically generated from config.js -->
+          </div>
+        </div>
+
+        <!-- Action: Send WhatsApp Confirmation -->
+        <div class="action-box">
+          <a href="#" class="btn btn-whatsapp" id="waSendBtn" target="_blank" rel="noopener noreferrer">
+            <span class="wa-icon">💬</span>
+            <span>Kirim Kabar Bahagia ke WhatsApp <span id="yourNameDisplay">Aku</span> 🥰</span>
+          </a>
+          <button class="btn btn-secondary" id="replayConfettiBtn">
+            <span>Ulangi Hujan Konfeti 🎊</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>Dibuat dengan sepenuh hati & cinta ❤️</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
